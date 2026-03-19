@@ -18,65 +18,127 @@ interface TI16TeamCardProps {
 }
 
 export function TI16TeamCard({ team }: TI16TeamCardProps) {
-  const isTBD = !team.players || team.players.length === 0;
+  const hasPlayers = !!team.players && team.players.length > 0;
+  const isTBD = !hasPlayers;
+  const logoUrl = isTBD ? "/images/tbd-test-6.jpg" : (team.logoImage ?? "");
+  const name = team.name;
+  const hasLogoImage = !!team.logoImage;
 
   return (
-    <div className="group relative">
+    <div
+      className={[
+        "relative w-full aspect-square min-w-0",
+        hasPlayers ? "group cursor-pointer" : "cursor-default",
+      ].join(" ")}
+    >
+      {/* Neon glow effect - outer */}
       <div
-        className={`absolute -inset-[1px] rounded-lg blur-sm transition-opacity duration-300 ${
-          isTBD
-            ? "bg-[#896afd]/25 opacity-60 group-hover:opacity-100"
-            : "bg-[#a78bfa]/35 opacity-75 group-hover:opacity-100"
-        }`}
+        className={[
+          "absolute -inset-[2px] rounded-none opacity-80 transition-opacity duration-300",
+          hasPlayers ? "group-hover:opacity-100" : "",
+        ].join(" ")}
+        style={{
+          background: "linear-gradient(180deg, #7c3aed 0%, #4f46e5 25%, #6366f1 50%, #4f46e5 75%, #7c3aed 100%)",
+          filter: "blur(4px)",
+        }}
       />
 
+      {/* Neon border */}
       <div
-        className={`relative flex flex-col p-4 sm:p-5 rounded-lg aspect-square overflow-hidden transition-all duration-300 ${
-          isTBD
-            ? "border border-[#896afd]/60 group-hover:border-[#a78bfa]/90 shadow-[0_0_10px_rgba(137,106,253,0.3),inset_0_0_8px_rgba(137,106,253,0.04)] group-hover:shadow-[0_0_18px_rgba(137,106,253,0.5),0_0_28px_rgba(137,106,253,0.15),inset_0_0_10px_rgba(137,106,253,0.06)]"
-            : "border border-[#a78bfa]/70 group-hover:border-[#c4b5fd] shadow-[0_0_14px_rgba(167,139,250,0.45),inset_0_0_10px_rgba(167,139,250,0.08)] group-hover:shadow-[0_0_22px_rgba(167,139,250,0.65),0_0_35px_rgba(196,181,253,0.25),inset_0_0_12px_rgba(167,139,250,0.12)]"
-        }`}
+        className="absolute -inset-[1px] rounded-none"
+        style={{
+          background: "linear-gradient(180deg, #a78bfa 0%, #818cf8 30%, #6366f1 50%, #818cf8 70%, #a78bfa 100%)",
+        }}
+      />
+
+      {/* Card container */}
+      <div
+        className="relative rounded-none h-full overflow-hidden"
+        style={{
+          background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #1e1b4b 60%, #0f0a2e 100%)",
+        }}
       >
+        {/* Fondo aegis transparente */}
+        <div
+          className="absolute inset-0 rounded-none opacity-25 bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url(/images/aegis-fondo.png)",
+            backgroundSize: "130%",
+          }}
+          aria-hidden
+        />
+        {/* Inner glow overlay */}
+        <div
+          className="absolute inset-0 rounded-none opacity-30 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at center top, #8b5cf6 0%, transparent 60%)",
+          }}
+        />
+
         {isTBD ? (
           <>
+            {/* Slot vacío: imagen full, sin texto, sin hover */}
             <Image
-              src="/images/tbd-test-3.jpg"
+              src={logoUrl}
               alt=""
               fill
               className="object-cover object-center"
               sizes="(max-width: 640px) 50vw, 25vw"
             />
-            <div className="absolute inset-0 bg-black/20" />
+            <div className="absolute inset-0 bg-black/15" aria-hidden />
           </>
         ) : (
           <>
-            <div className="absolute inset-0 bg-[#080810]" />
-            {/* Logo: visible por defecto, se oculta al hover */}
-            {team.logoImage && (
-              <div className="absolute inset-0 z-10 p-4 opacity-100 transition-opacity duration-300 group-hover:opacity-0 pointer-events-none">
-                <Image
-                  src={team.logoImage}
-                  alt={team.name}
-                  fill
-                  className="object-contain p-2"
-                  sizes="(max-width: 640px) 50vw, 25vw"
-                />
-              </div>
-            )}
-            {/* Jugadores: ocultos por defecto, visibles al hover */}
-            <div className="relative z-10 flex flex-col flex-1 min-h-0 w-full opacity-0 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none">
-              {team.players!.map((p, i) => (
-                <div
-                  key={p.id}
-                  className="flex items-center gap-2 py-2 border-b border-white/10 last:border-b-0 text-foreground text-xs sm:text-sm"
-                >
-                  <span className="w-5 shrink-0 text-muted-foreground font-medium tabular-nums">
-                    {i + 1}
+            {/* Vista default: logo centrado + nombre abajo */}
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 py-3 transition-opacity duration-300 group-hover:opacity-0">
+              <div className="relative w-36 h-36 sm:w-40 sm:h-40 flex items-center justify-center">
+                {hasLogoImage ? (
+                  <Image
+                    src={logoUrl}
+                    alt={`${name} logo`}
+                    width={180}
+                    height={180}
+                    className="object-contain drop-shadow-[0_0_8px_rgba(139,92,246,0.6)] group-hover:drop-shadow-[0_0_12px_rgba(139,92,246,0.8)] transition-all duration-300"
+                    style={{ filter: "brightness(0.9) contrast(1.1)" }}
+                  />
+                ) : (
+                  <span
+                    className="text-2xl font-bold text-[#a78bfa] drop-shadow-[0_0_8px_rgba(167,139,250,0.5)]"
+                    style={{ textShadow: "0 0 8px rgba(167, 139, 250, 0.5)" }}
+                  >
+                    {team.logo || name.slice(0, 2)}
                   </span>
-                  <CountryFlag countryCode={p.countryCode} className="w-5 shrink-0 rounded-[2px] overflow-hidden" />
-                  <span className="font-medium truncate min-w-0">{p.name}</span>
+                )}
+              </div>
+
+              <span
+                className="mt-0 text-base sm:text-lg font-medium text-center line-clamp-2"
+                style={{
+                  color: "#a78bfa",
+                  textShadow: "0 0 8px rgba(167, 139, 250, 0.5)",
+                }}
+              >
+                {name}
+              </span>
+            </div>
+
+            {/* Hover: players ocupan toda la card */}
+            <div className="absolute inset-0 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 bg-black/35" aria-hidden />
+              <div className="relative h-full w-full p-3 overflow-auto">
+                <div className="h-full flex flex-col justify-center gap-1">
+                  {team.players!.map((p, i) => (
+                    <div
+                      key={p.id}
+                      className="flex items-center gap-2 py-1.5 border-b border-white/10 last:border-b-0 text-white text-sm sm:text-base"
+                    >
+                      <span className="w-4 shrink-0 text-white/80 font-medium tabular-nums">{i + 1}</span>
+                      <CountryFlag countryCode={p.countryCode} className="w-4 shrink-0 rounded-[2px] overflow-hidden" />
+                      <span className="font-medium truncate min-w-0">{p.name}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </>
         )}

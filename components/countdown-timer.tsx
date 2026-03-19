@@ -35,10 +35,10 @@ function TimeBlock({ value, label }: { value: number; label: string }) {
   return (
     <div className="relative group">
       {/* Glow effect - violet/cyan */}
-      <div className="absolute -inset-1 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#896afd]/30" />
+      <div className="absolute -inset-1 rounded-none blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#896afd]/30" />
 
       {/* Card */}
-      <div className="relative flex flex-col items-center justify-center w-20 h-24 sm:w-28 sm:h-32 md:w-32 md:h-36 rounded-xl bg-[#020617]/80 backdrop-blur-md border border-white/10 shadow-lg shadow-black/20">
+      <div className="relative flex flex-col items-center justify-center w-20 h-24 sm:w-28 sm:h-32 md:w-32 md:h-36 rounded-none bg-[#020617]/80 backdrop-blur-md border border-white/50 shadow-lg shadow-black/20">
         <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tabular-nums">
           {value.toString().padStart(2, "0")}
         </span>
@@ -52,7 +52,7 @@ function TimeBlock({ value, label }: { value: number; label: string }) {
 
 function Separator() {
   return (
-    <div className="flex flex-col items-center justify-center gap-2 px-1 sm:px-2">
+    <div className="flex flex-col items-center justify-center gap-2 px-0.5 sm:px-1">
       <div className="w-2 h-2 rounded-full bg-[#896afd99]" />
       <div className="w-2 h-2 rounded-full bg-[#896afd99]" />
     </div>
@@ -88,14 +88,14 @@ export function CountdownTimer({ targetDate: targetDateProp, daysFromNow, title 
 
   if (!mounted) {
     return (
-      <section className="py-8 md:py-10">
+      <section className="py-8 md:py-8">
         <div className="container mx-auto px-4">
           {title && (
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#cc00ff] to-[#00e7ff]" style={{ fontFamily: "'Bison Bold', sans-serif" }}>
               {title}
             </h2>
           )}
-          <div className="flex items-center justify-center gap-2 sm:gap-4">
+          <div className="flex items-center justify-center gap-1 sm:gap-2">
             <TimeBlock value={0} label="DÍAS" />
             <Separator />
             <TimeBlock value={0} label="HORAS" />
@@ -110,14 +110,14 @@ export function CountdownTimer({ targetDate: targetDateProp, daysFromNow, title 
   }
 
   return (
-    <section className="py-8 md:py-10">
+    <section className="py-8 md:py-8">
       <div className="container mx-auto px-4">
         {title && (
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#cc00ff] to-[#00e7ff] drop-shadow-[0_0_15px_rgba(204,0,255,0.3)]" style={{ fontFamily: "'Bison Bold', sans-serif" }}>
             {title}
           </h2>
         )}
-        <div className="flex items-center justify-center gap-2 sm:gap-4">
+        <div className="flex items-center justify-center gap-1 sm:gap-2">
           <TimeBlock value={timeLeft.days} label="DÍAS" />
           <Separator />
           <TimeBlock value={timeLeft.hours} label="HORAS" />

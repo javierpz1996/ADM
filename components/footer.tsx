@@ -38,13 +38,12 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <h3 className="text-xl font-bold text-white">
-              ADL –{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#896afd] via-[#a78bfa] to-[#38bdf8]">
-                Argentina Dota League
+                Argentina Dota Masters S1
               </span>
             </h3>
             <p className="text-white/70 text-sm leading-relaxed max-w-xs">
-              Community driven Dota 2 tournaments in Argentina
+              Torneo de Dota 2 en Argentina. Argentina Dota Masters S1.
             </p>
           </div>
 
@@ -93,7 +92,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="container mx-auto px-6 py-5">
           <p className="text-center text-white/60 text-xs">
-            © 2026 Argentina Dota League. All rights reserved.
+            © 2026 Argentina Dota Masters S1. All rights reserved.
           </p>
         </div>
       </div>

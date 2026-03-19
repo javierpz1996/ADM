@@ -1,32 +1,37 @@
 "use client"
 
+import { motion } from "framer-motion"
+import type { Transition } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface BorderBeamProps {
-  duration?: number
-  colorFrom?: string
-  colorTo?: string
+  size?: number
+  initialOffset?: number
   className?: string
-  borderWidth?: number
+  transition?: Transition
 }
 
 export function BorderBeam({
+  size = 50,
+  initialOffset = 0,
   className,
-  duration = 8,
-  colorFrom = "#896afd",
-  colorTo = "#00e7ff",
-  borderWidth = 2,
+  transition,
 }: BorderBeamProps) {
   return (
-    <div
-      className={cn("pointer-events-none absolute inset-0 rounded-[inherit] overflow-hidden", className)}
-      aria-hidden
-    >
-      <div
-        className="absolute rounded-[inherit] w-[200%] h-[200%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-beam-rotate"
-        style={{
-          background: `conic-gradient(from 0deg, transparent 0deg 250deg, ${colorFrom} 280deg, ${colorTo} 320deg, transparent 360deg)`,
-          animationDuration: `${duration}s`,
+    <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+      <motion.div
+        className={cn(
+          "absolute left-1/2 top-1/2 h-[200%] w-[200%] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r",
+          className ?? "from-transparent via-[#896afd] to-transparent"
+        )}
+        style={{ opacity: 0.6 }}
+        initial={{ rotate: initialOffset * 3.6 }}
+        animate={{ rotate: 360 + (initialOffset * 3.6) }}
+        transition={{
+          repeat: Infinity,
+          ease: "linear",
+          duration: 8,
+          ...transition,
         }}
       />
     </div>

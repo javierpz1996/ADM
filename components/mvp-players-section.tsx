@@ -11,7 +11,7 @@ export function MVPPlayersSection() {
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 280;
+      const scrollAmount = 360;
       scrollContainerRef.current.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
@@ -28,67 +28,199 @@ export function MVPPlayersSection() {
       </div>
       
       <div className="relative mx-auto w-full px-4 sm:px-6 lg:px-8">
-        {/* Título + flechas: max-w-7xl */}
-        <div className="mx-auto max-w-7xl">
-          <div className="flex w-full items-center justify-between gap-4 mb-4">
+        {/* Título + flechas (estilo referencia) */}
+        <div className="mb-4 w-full max-w-[1500px] lg:mx-auto">
+          <div className="flex w-full items-start justify-between gap-3">
             <div>
-              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              <h2 className="text-2xl font-bold uppercase tracking-tight text-white sm:text-5xl lg:text-6xl">
                 MVP Players
               </h2>
-              <p className="text-sm text-[#a78bfa]/80">
+              <p
+                className="mt-2 text-[10px] font-bold uppercase tracking-tight bg-gradient-to-r from-[#cc00ff] to-[#00e7ff] bg-clip-text text-transparent sm:text-xs md:text-sm"
+                style={{
+                  filter:
+                    "drop-shadow(0 0 12px rgba(204, 0, 255, 0.6)) drop-shadow(0 0 24px rgba(0, 231, 255, 0.4))",
+                }}
+              >
                 Top performing players of the tournament
               </p>
+              
             </div>
-            <div className="hidden gap-2 sm:flex">
+
+                
+
+            <div className="hidden shrink-0 gap-2 sm:flex">
               <Button
                 variant="outline"
                 size="icon"
                 onClick={() => scroll("left")}
-                className="h-10 w-10 border-[#896afd]/40 bg-[#030712]/60 text-[#896afd] hover:border-[#896afd]/70 hover:bg-[#896afd]/20 hover:text-[#a78bfa]"
+                className="h-12 w-12 border-[#896afd]/40 bg-[#030712]/60 text-[#896afd] hover:border-[#896afd]/70 hover:bg-[#896afd]/20 hover:text-[#a78bfa]"
               >
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-6 w-6" />
                 <span className="sr-only">Scroll left</span>
               </Button>
               <Button
                 variant="outline"
                 size="icon"
                 onClick={() => scroll("right")}
-                className="h-10 w-10 border-[#896afd]/40 bg-[#030712]/60 text-[#896afd] hover:border-[#896afd]/70 hover:bg-[#896afd]/20 hover:text-[#a78bfa]"
+                className="h-12 w-12 border-[#896afd]/40 bg-[#030712]/60 text-[#896afd] hover:border-[#896afd]/70 hover:bg-[#896afd]/20 hover:text-[#a78bfa]"
               >
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-6 w-6" />
                 <span className="sr-only">Scroll right</span>
               </Button>
             </div>
           </div>
         </div>
 
-        {/* Cards: ancho completo, sin max-w */}
-        <div
-          ref={scrollContainerRef}
-          className="scrollbar-hide flex justify-center gap-5 overflow-x-auto scroll-smooth pb-6 pt-2"
-          style={{
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-          }}
-        >
-          {mvpPlayers.slice(0, 5).map((player) => (
-            <MVPPlayerCard key={player.id} player={player} />
-          ))}
-        </div>
+        {/* 4 cards + footer: mismo ancho que la fila de referencia */}
+        <div className="mx-auto w-full max-w-[1500px]">
+          <div
+            ref={scrollContainerRef}
+            className="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 pt-2 sm:gap-5 md:grid md:snap-none md:grid-cols-4 md:gap-4 md:overflow-visible lg:gap-5"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
+          >
+            {Array.from({ length: 4 }).map((_, idx) => {
+              const player = mvpPlayers[0]
+              if (!player) return null
 
-        {/* Texto debajo de las cards: max-w-7xl */}
-        <div className="mx-auto mt-4 flex w-full max-w-7xl flex-row flex-wrap items-center justify-between gap-6 sm:gap-8">
-          <span className="px-5 py-3 rounded-none text-sm font-black uppercase tracking-wider max-w-xl" style={{ backgroundColor: "#896afd", backgroundImage: "radial-gradient(ellipse 120% 100% at 0% 0%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.6) 18%, rgba(255,255,255,0.2) 35%, transparent 60%)", boxShadow: "0 0 25px rgba(137, 106, 253, 0.8), 0 0 50px rgba(137, 106, 253, 0.4)", color: "#1a1a1a", textShadow: "0 0 12px rgba(137, 106, 253, 0.8), 0 0 4px rgba(255,255,255,0.4)" }}>
-            The players who made the biggest impact this tournament.
-          </span>
-          <span className="text-sm sm:text-base font-bold text-white border border-[#896afd] px-4 py-2">
-            — Our Beasts
-          </span>
+              return (
+                <div
+                  key={`${player.id}-${idx}`}
+                  className="min-w-0 shrink-0 snap-center md:w-full"
+                >
+                  <MVPPlayerCard player={player} />
+                </div>
+              )
+            })}
+          </div>
+
+        {/* Texto debajo alineado con bordes de las 4 cards */}
+        <div className="mt-6 flex w-full flex-col gap-4 sm:mt-8 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+          <div className="mt-2 relative inline-block">
+            {/* Neon glow effect (mismo look que teams-section) */}
+            <div
+              className="absolute -inset-[2px] rounded-none opacity-80"
+              style={{
+                background:
+                  "linear-gradient(180deg, #7c3aed 0%, #4f46e5 25%, #6366f1 50%, #4f46e5 75%, #7c3aed 100%)",
+                filter: "blur(4px)",
+              }}
+              aria-hidden
+            />
+
+            {/* Neon border */}
+            <div
+              className="absolute -inset-[1px] rounded-none"
+              style={{
+                background:
+                  "linear-gradient(180deg, #a78bfa 0%, #818cf8 30%, #6366f1 50%, #818cf8 70%, #a78bfa 100%)",
+              }}
+              aria-hidden
+            />
+
+            {/* Card container */}
+            <div
+              className="relative rounded-none overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #1e1b4b 60%, #0f0a2e 100%)",
+              }}
+            >
+              {/* Fondo aegis transparente */}
+              <div
+                className="absolute inset-0 rounded-none opacity-25 bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: "url(/images/aegis-fondo.png)",
+                  backgroundSize: "130%",
+                }}
+                aria-hidden
+              />
+
+              {/* Inner glow overlay */}
+              <div
+                className="absolute inset-0 rounded-none opacity-30 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center top, #8b5cf6 0%, transparent 60%)",
+                }}
+                aria-hidden
+              />
+
+              <span
+                className="relative block px-5 py-3 text-sm sm:text-base font-black uppercase tracking-wider text-white"
+                style={{ textShadow: "0 0 4px rgba(255,255,255,0.4)" }}
+              >
+                The players who made the biggest impact this tournament.
+              </span>
+            </div>
+          </div>
+          <div className="mt-2 relative inline-block">
+            {/* Neon glow effect (mismo look que el bloque de arriba) */}
+            <div
+              className="absolute -inset-[2px] rounded-none opacity-80"
+              style={{
+                background:
+                  "linear-gradient(180deg, #7c3aed 0%, #4f46e5 25%, #6366f1 50%, #4f46e5 75%, #7c3aed 100%)",
+                filter: "blur(4px)",
+              }}
+              aria-hidden
+            />
+
+            {/* Neon border */}
+            <div
+              className="absolute -inset-[1px] rounded-none"
+              style={{
+                background:
+                  "linear-gradient(180deg, #a78bfa 0%, #818cf8 30%, #6366f1 50%, #818cf8 70%, #a78bfa 100%)",
+              }}
+              aria-hidden
+            />
+
+            {/* Card container */}
+            <div
+              className="relative rounded-none overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #1e1b4b 60%, #0f0a2e 100%)",
+              }}
+            >
+              {/* Fondo aegis transparente */}
+              <div
+                className="absolute inset-0 rounded-none opacity-25 bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: "url(/images/aegis-fondo.png)",
+                  backgroundSize: "130%",
+                }}
+                aria-hidden
+              />
+
+              {/* Inner glow overlay */}
+              <div
+                className="absolute inset-0 rounded-none opacity-30 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center top, #8b5cf6 0%, transparent 60%)",
+                }}
+                aria-hidden
+              />
+
+              <span
+                className="relative block px-5 py-3 text-sm sm:text-base font-black uppercase tracking-wider text-white"
+                style={{ textShadow: "0 0 4px rgba(255,255,255,0.4)" }}
+              >
+                — Our Beasts
+              </span>
+            </div>
+          </div>
+        </div>
         </div>
 
         {/* Mobile scroll hint */}
-        <p className="mt-4 text-center text-xs text-[#a78bfa]/60 sm:hidden">
-          Swipe to see more players
+        <p className="mt-4 text-center text-xs text-[#a78bfa]/60 lg:hidden">
+          Deslizá para ver los jugadores
         </p>
       </div>
     </section>

@@ -1,27 +1,37 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { cn } from "@/lib/utils"
 
 export function BorderBeam({
-  size = 200,
   duration = 8,
-  className = "",
+  size = 100,
+  reverse = false,
+  className,
 }: {
-  size?: number
   duration?: number
+  size?: number
+  reverse?: boolean
   className?: string
 }) {
   return (
-    <div className={`absolute inset-0 overflow-hidden ${className}`}>
-      <motion.div
-        className="absolute h-[200%] w-[200%] bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 opacity-40 blur-xl"
-        animate={{ rotate: 360 }}
-        transition={{
-          repeat: Infinity,
-          duration: duration,
-          ease: "linear",
-        }}
-      />
-    </div>
+    <motion.div
+      className={cn(
+        "pointer-events-none absolute inset-0 rounded-xl z-0 bg-gradient-to-r",
+        className ?? "from-transparent via-[#a855f7] to-transparent"
+      )}
+      style={{
+        backgroundSize: `${size}px 100%`,
+        backgroundRepeat: "repeat",
+      }}
+      animate={{
+        backgroundPosition: reverse ? ["200% 0%", "0% 0%"] : ["0% 0%", "200% 0%"],
+      }}
+      transition={{
+        duration,
+        repeat: Infinity,
+        ease: "linear",
+      }}
+    />
   )
 }
