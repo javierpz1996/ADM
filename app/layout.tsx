@@ -2,8 +2,10 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { DM_Sans, Staatliches, Bebas_Neue, Geist } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { Toaster } from 'sonner'
 import './globals.css'
 import { cn } from "@/lib/utils";
+import { AppPageBackground } from "@/components/app-page-background";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -66,8 +68,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
-      <body className={`${streetHipster.variable} ${jamstreetGraffiti.variable} ${dmSans.variable} ${staatliches.variable} ${bebasNeue.variable} font-sans antialiased`}>
+      <body
+        className={cn(
+          streetHipster.variable,
+          jamstreetGraffiti.variable,
+          dmSans.variable,
+          staatliches.variable,
+          bebasNeue.variable,
+          "min-h-screen bg-[#060d14] font-sans antialiased",
+        )}
+      >
+        <AppPageBackground />
         {children}
+        <Toaster richColors position="top-center" />
         <Analytics />
       </body>
     </html>

@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { NewsCard } from "./news-card"
+import { useState } from "react";
+import { NewsCard } from "./news-card";
 
 const initialNews = [
   {
@@ -25,7 +25,7 @@ const initialNews = [
     title: "EPT Season 2025/2026 Event Overview",
     href: "#",
   },
-]
+];
 
 const moreNews = [
   {
@@ -49,16 +49,16 @@ const moreNews = [
     title: "Regional Qualifiers – Format and Schedule",
     href: "#",
   },
-]
+];
 
 export function LatestNews() {
-  const [news, setNews] = useState(initialNews)
-  const [hasMore, setHasMore] = useState(true)
+  const [news, setNews] = useState(initialNews);
+  const [hasMore, setHasMore] = useState(true);
 
   const handleLoadMore = () => {
-    setNews([...news, ...moreNews])
-    setHasMore(false)
-  }
+    setNews([...news, ...moreNews]);
+    setHasMore(false);
+  };
 
   return (
     <section className="bg-background px-6 py-16 md:px-12 lg:px-20">
@@ -91,5 +91,5 @@ export function LatestNews() {
         )}
       </div>
     </section>
-  )
+  );
 }

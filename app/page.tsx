@@ -10,7 +10,7 @@ import { Footer } from "@/components/footer";
 
 export default function TournamentPage() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="relative min-h-screen">
       <Navbar />
       <HeroSection />
       <MerchSection />

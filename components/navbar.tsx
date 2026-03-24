@@ -2,15 +2,15 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Menu, X, Trophy } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { name: "Inicio", href: "#hero" },
-  { name: "Equipos", href: "#teams" },
-  { name: "Noticias", href: "#news" },
-  { name: "Mercado", href: "#merch" },
-  { name: "Streamers", href: "#streamers" },
+  { name: "Inicio", href: "/" },
+  { name: "Equipos", href: "/equipos" },
+  { name: "Noticias", href: "/noticias" },
+  { name: "Tablón", href: "/tablon" },
+  { name: "Streamers", href: "/streamers" },
+  { name: "Registrarme", href: "/registrarme" },
 ];
 
 export function Navbar() {

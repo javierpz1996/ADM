@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { NewsCard } from "./news-card"
+import { useState } from "react";
+import { NewsCard } from "./news-card";
 
 const initialNews = [
   {
@@ -32,7 +32,7 @@ const initialNews = [
     title: "Championship Finals – Road to Glory",
     href: "#",
   },
-]
+];
 
 const moreNews = [
   {
@@ -49,19 +49,18 @@ const moreNews = [
     title: "Regional Qualifiers – Format and Schedule",
     href: "#",
   },
-]
+];
 
 export function LatestNews() {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const displayedNews = isExpanded ? [...initialNews, ...moreNews] : initialNews
-  const handleToggle = () => setIsExpanded((v) => !v)
+  const [isExpanded, setIsExpanded] = useState(false);
+  const displayedNews = isExpanded ? [...initialNews, ...moreNews] : initialNews;
+  const handleToggle = () => setIsExpanded((v) => !v);
 
   return (
     <section
       id="news"
-      className="relative overflow-hidden bg-[#030712] px-4 py-16 sm:px-6 lg:px-8"
+      className="relative bg-[#060d14] px-4 py-20 sm:py-24 md:py-28 sm:px-6 lg:px-8"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#896afd]/5 to-transparent" aria-hidden />
       <div className="relative z-10 mx-auto w-full max-w-[1500px]">
         <h2 className="mb-12 text-4xl font-black uppercase tracking-tight text-white md:text-5xl lg:text-6xl">
           Latest News
@@ -86,7 +85,6 @@ export function LatestNews() {
               onClick={handleToggle}
               className="relative inline-block bg-transparent p-0 text-left"
             >
-              {/* Neon glow effect (sin aegis) */}
               <div
                 className="absolute -inset-[2px] rounded-none opacity-80"
                 style={{
@@ -97,7 +95,6 @@ export function LatestNews() {
                 aria-hidden
               />
 
-              {/* Neon border */}
               <div
                 className="absolute -inset-[1px] rounded-none"
                 style={{
@@ -107,7 +104,6 @@ export function LatestNews() {
                 aria-hidden
               />
 
-              {/* Card container */}
               <div
                 className="relative rounded-none overflow-hidden"
                 style={{
@@ -115,7 +111,6 @@ export function LatestNews() {
                     "linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #1e1b4b 60%, #0f0a2e 100%)",
                 }}
               >
-                {/* Inner glow overlay */}
                 <div
                   className="absolute inset-0 rounded-none opacity-30 pointer-events-none"
                   style={{
@@ -137,5 +132,5 @@ export function LatestNews() {
         )}
       </div>
     </section>
-  )
+  );
 }

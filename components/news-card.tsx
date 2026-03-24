@@ -1,11 +1,11 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
 
 interface NewsCardProps {
-  image: string
-  date: string
-  title: string
-  href: string
+  image: string;
+  date: string;
+  title: string;
+  href: string;
 }
 
 export function NewsCard({ image, date, title, href }: NewsCardProps) {
@@ -30,5 +30,5 @@ export function NewsCard({ image, date, title, href }: NewsCardProps) {
         </div>
       </article>
     </Link>
-  )
+  );
 }

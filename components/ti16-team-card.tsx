@@ -63,7 +63,7 @@ export function TI16TeamCard({ team }: TI16TeamCardProps) {
           className="absolute inset-0 rounded-none opacity-25 bg-center bg-no-repeat"
           style={{
             backgroundImage: "url(/images/aegis-fondo.png)",
-            backgroundSize: "130%",
+            backgroundSize: "170%",
           }}
           aria-hidden
         />

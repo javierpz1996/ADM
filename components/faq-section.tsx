@@ -43,7 +43,7 @@ const faqItems = [
 
 export function FaqSection() {
   return (
-    <section className="w-full bg-[#030712] py-16 md:py-14">
+    <section className="w-full bg-[#030712] py-24 sm:py-28 md:py-32">
       <div className="container mx-auto px-4 md:px-8">
         {/* Contenedor rectangular */}
         <div className="mx-auto max-w-7xl border border-[#4b5563] bg-[#020617]/90 px-6 py-8 shadow-[0_0_40px_rgba(15,23,42,0.9)] md:px-10 md:py-8">

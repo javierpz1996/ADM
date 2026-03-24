@@ -4,7 +4,7 @@ export function MerchSection() {
   return (
     <section
       id="merch"
-      className="relative overflow-hidden py-20 sm:py-28"
+      className="relative overflow-hidden py-28 sm:py-32 md:py-40 min-h-[360px] sm:min-h-[420px] flex flex-col justify-center"
     >
       {/* Fondo: merch-fondo-2.jpg */}
       <div
